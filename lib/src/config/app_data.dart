@@ -1,3 +1,4 @@
+import '../models/cart_item_model.dart';
 import '../models/item_model.dart';
 
 ItemModel gourmetCake = new ItemModel(
@@ -22,3 +23,11 @@ ItemModel softCake = new ItemModel(
 List<ItemModel> items = [gourmetCake, poolCake, softCake];
 
 List<String> categories = ['Bolos', 'Salgados', 'Kit Festa', 'Doces'];
+
+List<CartItemModel> cartItems = [
+  CartItemModel(item: gourmetCake, quantity: 2),
+  CartItemModel(item: poolCake, quantity: 1),
+  CartItemModel(item: softCake, quantity: 3),
+
+
+];
