@@ -1,4 +1,5 @@
-import 'package:delicias_da_auzi/src/auth/sign_in_screen.dart';
+
+import 'package:delicias_da_auzi/src/pages/auth/sign_in_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -14,6 +15,7 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       theme: ThemeData(
         primarySwatch: Colors.purple,
+        scaffoldBackgroundColor: Colors.white.withAlpha(190)
       ),
       debugShowCheckedModeBanner: false,
       home: const SignInScreen(),

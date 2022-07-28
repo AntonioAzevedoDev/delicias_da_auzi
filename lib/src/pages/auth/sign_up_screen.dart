@@ -1,8 +1,8 @@
-import 'package:delicias_da_auzi/src/auth/components/custom_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
-import '../config/custom_colors.dart';
+import '../../config/custom_colors.dart';
+import 'components/custom_text_field.dart';
 
 class SignUpScreen extends StatelessWidget {
   SignUpScreen({Key? key}) : super(key: key);
