@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.lucas.azevedo.developer.delicias_da_auzi">
    <application
-        android:label="delicias_da_auzi"
+        android:label="Delicias da Auzi"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

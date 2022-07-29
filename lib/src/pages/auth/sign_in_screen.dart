@@ -1,5 +1,6 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:delicias_da_auzi/src/pages/auth/sign_up_screen.dart';
+import 'package:delicias_da_auzi/src/pages/commom_widgets/app_name_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:delicias_da_auzi/src/config/custom_colors.dart';
 import '../base/base_screen.dart';
@@ -24,29 +25,10 @@ class SignInScreen extends StatelessWidget {
                 child:  Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                      Text.rich(
-                         TextSpan(
-                       style:  TextStyle(
-                         fontSize: 40
-                       ),
-                           children: [
-                              TextSpan(
-                                 text:'Delicias da',
-                               style: TextStyle(
-                                 color: Colors.white,
-                                 fontWeight: FontWeight.bold
-                               )
-                             ),
-                             TextSpan(
-                               text: ' Auzi',
-                               style: TextStyle(
-                                 color: Colors.white,
-                                   fontWeight: FontWeight.bold
-
-                               )
-                             )
-                           ]
-                     )),
+                     AppNameWidget(
+                       purpleTitleColor: Colors.white,
+                       textSize: 40,
+                     ),
                      //Categorias
                      SizedBox(
                        height: 30,
