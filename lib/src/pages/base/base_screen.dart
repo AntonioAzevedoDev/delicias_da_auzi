@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 
 import '../cart/cart_tab.dart';
 import '../home/home_tab.dart';
+import '../orders/orders_tab.dart';
+import '../profile/profile_tab.dart';
 
 class BaseScreen extends StatefulWidget {
   const BaseScreen({Key? key}) : super(key: key);
@@ -23,15 +25,19 @@ class _BaseScreenState extends State<BaseScreen> {
         children: [
           HomeTab(),
           CartTab(),
-          Container(color: Colors.blue,),
-          Container(color: Colors.purple,),
+          OrdersTab(),
+          ProfileTab(),
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
-        onTap: (index){
+        onTap: (index) {
           setState(() {
             currentIndex = index;
-            pageController.jumpToPage(index);
+            //pageController.jumpToPage(index);
+            pageController.animateToPage(
+                index,
+                duration: const Duration(milliseconds: 500),
+                curve: Curves.easeInOutQuart);
           });
         },
         currentIndex: currentIndex,
