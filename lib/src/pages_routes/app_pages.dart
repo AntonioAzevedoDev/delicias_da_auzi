@@ -1,5 +1,5 @@
-import 'package:delicias_da_auzi/src/pages/auth/sign_in_screen.dart';
-import 'package:delicias_da_auzi/src/pages/auth/sign_up_screen.dart';
+import 'package:delicias_da_auzi/src/pages/auth/view/sign_in_screen.dart';
+import 'package:delicias_da_auzi/src/pages/auth/view/sign_up_screen.dart';
 import 'package:delicias_da_auzi/src/pages/base/base_screen.dart';
 import 'package:delicias_da_auzi/src/pages/splash/splash_screen.dart';
 import 'package:get/get.dart';
@@ -22,6 +22,7 @@ abstract class AppPages{
         page: () => BaseScreen(),
         name: PagesRoutes.baseRoute
     ),
+
   ];
 }
 

@@ -1,14 +1,14 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:delicias_da_auzi/src/pages/auth/controller/auth_controller.dart';
-import 'package:delicias_da_auzi/src/pages/auth/sign_up_screen.dart';
+import 'package:delicias_da_auzi/src/pages/auth/view/sign_up_screen.dart';
 import 'package:delicias_da_auzi/src/pages/commom_widgets/app_name_widget.dart';
 import 'package:delicias_da_auzi/src/pages_routes/app_pages.dart';
 import 'package:flutter/material.dart';
 import 'package:delicias_da_auzi/src/config/custom_colors.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
-import '../base/base_screen.dart';
-import '../commom_widgets/custom_text_field.dart';
+import '../../base/base_screen.dart';
+import '../../commom_widgets/custom_text_field.dart';
 import 'package:delicias_da_auzi/src/pages/auth/controller/auth_controller.dart';
 
 class SignInScreen extends StatelessWidget {
