@@ -1,9 +1,15 @@
 
+import 'package:delicias_da_auzi/src/pages/auth/controller/auth_controller.dart';
 import 'package:delicias_da_auzi/src/pages/auth/sign_in_screen.dart';
 import 'package:delicias_da_auzi/src/pages/splash/splash_screen.dart';
+import 'package:delicias_da_auzi/src/pages_routes/app_pages.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_navigation/src/root/get_material_app.dart';
 
 void main() {
+  Get.put(AuthController());
+
   runApp(const MyApp());
 }
 
@@ -12,14 +18,17 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       title: 'Delicias da Auzi',
       theme: ThemeData(
         primarySwatch: Colors.purple,
         scaffoldBackgroundColor: Colors.white.withAlpha(190)
       ),
       debugShowCheckedModeBanner: false,
-      home: const SplashScreen(),
+
+      initialRoute: PagesRoutes.splashRoute,
+
+      getPages: AppPages.pages,
     );
   }
 }
