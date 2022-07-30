@@ -1,21 +1,33 @@
 import 'package:delicias_da_auzi/src/config/app_data.dart' as appData;
+import 'package:delicias_da_auzi/src/pages/auth/repository/auth_repository.dart';
 import 'package:delicias_da_auzi/src/pages/commom_widgets/custom_text_field.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
+import '../auth/controller/auth_controller.dart';
 
 class ProfileTab extends StatefulWidget {
-  const ProfileTab({Key? key}) : super(key: key);
+  ProfileTab({Key? key}) : super(key: key);
 
   @override
   State<ProfileTab> createState() => _ProfileTabState();
 }
 
 class _ProfileTabState extends State<ProfileTab> {
+  final authController = Get.find<AuthController>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Perfil do usuário'),
-        actions: [IconButton(onPressed: () {}, icon: const Icon(Icons.logout))],
+        actions: [
+          IconButton(
+            onPressed: () {
+              authController.signOut();
+            },
+            icon: const Icon(Icons.logout),
+          )
+        ],
       ),
       body: ListView(
         physics: const BouncingScrollPhysics(),
@@ -84,25 +96,31 @@ class _ProfileTabState extends State<ProfileTab> {
                         padding: EdgeInsets.symmetric(vertical: 12),
                         child: Text(
                           'Atualização de senha',
-                          style:
-                              TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                          style: TextStyle(
+                              fontSize: 18, fontWeight: FontWeight.bold),
                           textAlign: TextAlign.center,
                         ),
                       ),
-                      CustomTextField(icon: Icons.lock, label: 'Senha atual', isSecret: true),
                       CustomTextField(
-                          icon: Icons.lock_outline, label: 'Nova senha', isSecret: true),
+                          icon: Icons.lock,
+                          label: 'Senha atual',
+                          isSecret: true),
                       CustomTextField(
-                          icon: Icons.lock_outline, label: 'Confirmar nova senha', isSecret: true,),
+                          icon: Icons.lock_outline,
+                          label: 'Nova senha',
+                          isSecret: true),
+                      CustomTextField(
+                        icon: Icons.lock_outline,
+                        label: 'Confirmar nova senha',
+                        isSecret: true,
+                      ),
                       //Botão de confirmação
                       SizedBox(
                         height: 45,
                         child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(20)
-                            )
-                          ),
+                            style: ElevatedButton.styleFrom(
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(20))),
                             onPressed: () {},
                             child: const Text('Atualizar')),
                       )
@@ -117,8 +135,7 @@ class _ProfileTabState extends State<ProfileTab> {
                         Navigator.of(context).pop();
                       },
                       icon: Icon(Icons.close),
-                    )
-                )
+                    ))
               ],
             ),
           );

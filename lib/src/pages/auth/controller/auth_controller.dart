@@ -17,11 +17,12 @@ class AuthController extends GetxController {
   UserModel user = UserModel();
 
   @override
-  void onInit(){
+  void onInit() {
     super.onInit();
 
     validateToken();
   }
+
   Future<void> validateToken() async {
     //Recuperar o dado salvo localmente
     String? token = await utilServices.getLocalData(key: StorageKeys.token);
@@ -32,24 +33,26 @@ class AuthController extends GetxController {
     } else {
       AuthResult result = await authRepository.validateToken(token);
       result.when(
-        success: (user){
+        success: (user) {
           this.user = user;
           saveTokenAndProceedToBase();
         },
-        error: (message){
+        error: (message) {
           signOut();
         },
       );
     }
   }
-Future<void> signOut() async{
+
+  Future<void> signOut() async {
     //Zerar o user
-  user = UserModel();
+    user = UserModel();
     //Remover o token localmente
-  utilServices.removeLocalData(StorageKeys.token);
+    utilServices.removeLocalData(StorageKeys.token);
     //Ir para o login
-  Get.offAllNamed(PagesRoutes.signInRoute);
-}
+    Get.offAllNamed(PagesRoutes.signInRoute);
+  }
+
   void saveTokenAndProceedToBase() {
     //Salvar o token
     utilServices.saveLocalData(
@@ -58,6 +61,23 @@ Future<void> signOut() async{
     );
     //Ir para a base
     Get.offAllNamed(PagesRoutes.baseRoute);
+  }
+
+  Future<void> signUp() async {
+    isLoading.value = true;
+
+    AuthResult result = await authRepository.signUp(user);
+
+    result.when(
+      success: (user){
+        this.user = user;
+        saveTokenAndProceedToBase();
+      },
+      error: (message){
+        utilServices.showToast(message: message, isError: true);
+      },
+    );
+    isLoading.value = false;
   }
 
   Future<void> signIn({required String email, required String password}) async {
@@ -74,5 +94,9 @@ Future<void> signOut() async{
     }, error: (message) {
       utilServices.showToast(message: message, isError: true);
     });
+  }
+
+  Future<void> resetPassword(String email) async {
+    await authRepository.resetPassword(email);
   }
 }
