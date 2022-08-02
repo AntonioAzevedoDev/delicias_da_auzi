@@ -1,3 +1,4 @@
+import 'package:clipboard/clipboard.dart';
 import 'package:delicias_da_auzi/src/services/utils_services.dart';
 import 'package:flutter/material.dart';
 import 'package:qr_flutter/qr_flutter.dart';
@@ -25,19 +26,19 @@ class PaymentDialog extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 //Titulo
-               const Padding(
-                  padding:  EdgeInsets.symmetric(vertical: 10),
-                  child:  Text(
+                const Padding(
+                  padding: EdgeInsets.symmetric(vertical: 10),
+                  child: Text(
                     'Pagamento com Pix',
                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
                   ),
                 ),
 
                 //QR Code
-                QrImage(
-                  data: "qweqweqe",
-                  version: QrVersions.auto,
-                  size: 200,
+                Image.memory(
+                  utilServices.decodeQrCodeImage(order.qrCodeImage),
+                  height: 200,
+                  width: 200,
                 ),
                 //Vencimento
                 Text(
@@ -57,7 +58,10 @@ class PaymentDialog extends StatelessWidget {
                         side: const BorderSide(width: 2, color: Colors.purple),
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(20))),
-                    onPressed: () {},
+                    onPressed: () {
+                      FlutterClipboard.copy(order.copyAndPaste);
+                      utilServices.showToast(message: 'Código copiado');
+                    },
                     icon: const Icon(
                       Icons.copy,
                       size: 15,

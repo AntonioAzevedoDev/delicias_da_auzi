@@ -23,6 +23,26 @@ class AuthController extends GetxController {
     validateToken();
   }
 
+  Future<void> changePassword({required String currentPassword, required String newPassword}) async {
+    isLoading.value = true;
+    final result = await authRepository.changePassword(
+      email: user.email!,
+      currentPassword: currentPassword,
+      newPassword: newPassword,
+      token: user.token!,
+    );
+    isLoading.value = false;
+    if(result){
+      //Mensagem
+      utilServices.showToast(message: 'A senha foi atualizada com sucesso');
+      //Logout
+      signOut();
+    }
+    else{
+      utilServices.showToast(message: 'A senha atual está incorreta',isError: true);
+    }
+  }
+
   Future<void> validateToken() async {
     //Recuperar o dado salvo localmente
     String? token = await utilServices.getLocalData(key: StorageKeys.token);
@@ -69,11 +89,11 @@ class AuthController extends GetxController {
     AuthResult result = await authRepository.signUp(user);
 
     result.when(
-      success: (user){
+      success: (user) {
         this.user = user;
         saveTokenAndProceedToBase();
       },
-      error: (message){
+      error: (message) {
         utilServices.showToast(message: message, isError: true);
       },
     );

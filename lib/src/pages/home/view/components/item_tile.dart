@@ -1,9 +1,12 @@
+import 'package:delicias_da_auzi/src/pages/cart/controller/cart_controller.dart';
 import 'package:delicias_da_auzi/src/pages/product/product_screen.dart';
+import 'package:delicias_da_auzi/src/pages_routes/app_pages.dart';
 import 'package:delicias_da_auzi/src/services/utils_services.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
-import '../../../config/custom_colors.dart';
-import '../../../models/item_model.dart';
+import '../../../../config/custom_colors.dart';
+import '../../../../models/item_model.dart';
 
 class ItemTile extends StatefulWidget {
   const ItemTile({Key? key, required this.item, required this.cartAnimationMethod}) : super(key: key);
@@ -11,13 +14,14 @@ class ItemTile extends StatefulWidget {
 
   final void Function(GlobalKey) cartAnimationMethod;
 
+
   @override
   State<ItemTile> createState() => _ItemTileState();
 }
 
 class _ItemTileState extends State<ItemTile> {
   final GlobalKey imageGk = GlobalKey();
-
+  final cartController = Get.find<CartController>();
   final UtilsServices utilsServices = UtilsServices();
 
   IconData tileIcon = Icons.add_shopping_cart_outlined;
@@ -36,11 +40,7 @@ class _ItemTileState extends State<ItemTile> {
         //Conteudo
         GestureDetector(
           onTap: (){
-            Navigator.of(context).push(
-              MaterialPageRoute(builder: (c){
-                return ProductScreen(item: widget.item,);
-              })
-            );
+            Get.toNamed(PagesRoutes.productRoute, arguments: widget.item);
           },
           child: Card(
             elevation: 1,
@@ -56,7 +56,7 @@ class _ItemTileState extends State<ItemTile> {
                   // Imagem
                   Expanded(child: Hero(
                       tag: widget.item.imgUrl,
-                      child: Image.asset(widget.item.imgUrl,key: imageGk,)
+                      child: Image.network(widget.item.imgUrl,key: imageGk,)
                   )
                   ),
                   //Nome
@@ -98,6 +98,7 @@ class _ItemTileState extends State<ItemTile> {
                 child: InkWell(
                   onTap: (){
                     switchIcon();
+                    cartController.addItemToCart(item: widget.item);
 
                     widget.cartAnimationMethod(imageGk);
                   },
