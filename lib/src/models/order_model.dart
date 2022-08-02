@@ -1,14 +1,26 @@
+import 'package:delicias_da_auzi/src/pages/cart/cart_result/cart_result.dart';
+import 'package:json_annotation/json_annotation.dart';
+
 import 'cart_item_model.dart';
 
+part 'order_model.g.dart';
+
+@JsonSerializable()
 class OrderModel {
   String id;
-  DateTime createdDateTime;
+  @JsonKey(name: 'createdAt')
+  DateTime? createdDateTime;
+  @JsonKey(name: 'due')
   DateTime overdueDateTime;
+  @JsonKey(defaultValue: [])
   List<CartItemModel> items;
   String status;
+  @JsonKey(name: 'copiaecola')
   String copyAndPaste;
   double total;
+  String qrCodeImage;
 
+  bool get isOverDue => overdueDateTime.isBefore(DateTime.now());
   OrderModel({
     required this.id,
     required this.createdDateTime,
@@ -16,6 +28,16 @@ class OrderModel {
     required this.items,
     required this.status,
     required this.copyAndPaste,
-    required this.total
-});
+    required this.total,
+    required this.qrCodeImage,
+  });
+
+  factory OrderModel.fromJson(Map<String,dynamic> json) => _$OrderModelFromJson(json);
+
+  Map<String,dynamic> toJson()=> _$OrderModelToJson(this);
+
+  @override
+  String toString() {
+    return 'OrderModel{id: $id, createdDateTime: $createdDateTime, overdueDateTime: $overdueDateTime, items: $items, status: $status, copyAndPaste: $copyAndPaste, total: $total, qrCodeImage: $qrCodeImage}';
+  }
 }

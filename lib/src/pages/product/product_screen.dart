@@ -1,12 +1,15 @@
 import 'package:delicias_da_auzi/src/config/custom_colors.dart';
 import 'package:delicias_da_auzi/src/models/item_model.dart';
+import 'package:delicias_da_auzi/src/pages/cart/controller/cart_controller.dart';
 import 'package:delicias_da_auzi/src/services/utils_services.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
+import '../base/controller/navigation_controller.dart';
 import '../commom_widgets/quantity_widget.dart';
 class ProductScreen extends StatefulWidget {
-  ProductScreen({Key? key, required this.item}) : super(key: key);
-  final ItemModel item;
+  ProductScreen({Key? key}) : super(key: key);
+  final ItemModel item = Get.arguments;
 
   @override
   State<ProductScreen> createState() => _ProductScreenState();
@@ -16,7 +19,9 @@ class _ProductScreenState extends State<ProductScreen> {
   final UtilsServices utilsServices =  UtilsServices();
 
   int cartItemQuantity = 1;
+  final navigationController = Get.find<NavigationController>();
 
+  final cartController = Get.find<CartController>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,7 +31,7 @@ class _ProductScreenState extends State<ProductScreen> {
           //Conteudo
           Column(
             children: [
-              Expanded(child: Hero(tag:widget.item.imgUrl,child: Image.asset(widget.item.imgUrl))),
+              Expanded(child: Hero(tag:widget.item.imgUrl,child: Image.network(widget.item.imgUrl))),
               Expanded(child: Container(
                 padding: const EdgeInsets.all(32),
                 decoration: BoxDecoration(
@@ -97,7 +102,14 @@ class _ProductScreenState extends State<ProductScreen> {
                             borderRadius: BorderRadius.circular(15)
                           ),
                         ),
-                          onPressed: (){},
+                          onPressed: (){
+                          //Fechar
+                            Get.back();
+                            //Adicionar produto
+                            cartController.addItemToCart(item: widget.item, quantity: cartItemQuantity);
+                            //Abrir carrinho
+                            navigationController.navigatePageView(NavigationTabs.cart);
+                          },
                           label: const Text('Add no carrinho',style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 18
